@@ -48,14 +48,14 @@ VALUES
 
 INSERT INTO products (name, price, description)
 VALUES 
-('Laptop', 999.99, 'A high-performance laptop with 16GB RAM and 512GB SSD.'),
-('Wireless Mouse', 25.50, 'An ergonomic wireless mouse with adjustable DPI settings.'),
-('Smartphone', 599.00, 'A 5G-enabled smartphone with a 6.5-inch display and 128GB storage.'),
-('Headphones', 85.75, 'Noise-canceling over-ear headphones with deep bass.'),
-('Smartwatch', 199.99, 'A smartwatch with heart rate monitor, GPS, and fitness tracking.'),
-('Bluetooth Speaker', 45.00, 'Portable Bluetooth speaker with 360-degree sound.'),
-('Keyboard', 50.00, 'Mechanical keyboard with RGB backlighting and tactile keys.'),
-('Tablet', 349.99, '10-inch tablet with 64GB storage and a high-resolution display.');
+('Product A', 999.99, 'A high-performance laptop with 16GB RAM and 512GB SSD.'),
+('Product B', 25.50, 'An ergonomic wireless mouse with adjustable DPI settings.'),
+('Product C', 599.00, 'A 5G-enabled smartphone with a 6.5-inch display and 128GB storage.'),
+('Product D', 85.75, 'Noise-canceling over-ear headphones with deep bass.'),
+('Product E', 199.99, 'A smartwatch with heart rate monitor, GPS, and fitness tracking.'),
+('Product F', 45.00, 'Portable Bluetooth speaker with 360-degree sound.'),
+('Product G', 50.00, 'Mechanical keyboard with RGB backlighting and tactile keys.'),
+('Product H', 349.99, '10-inch tablet with 64GB storage and a high-resolution display.');
 
 
 INSERT INTO orders (customer_id, order_date, total_amount)
