@@ -1,0 +1,129 @@
+1.Retrieve all customers who have placed an order in the last 30 days:
+
+SELECT DISTINCT c.*
+FROM customers c
+JOIN orders o ON c.id = o.customer_id 
+WHERE o.order_date > CURDATE() - INTERVAL 30 DAY;
+
+Explanation:
+The JOIN ensures that we combine data from both the customers and orders tables.
+CURDATE() - INTERVAL 30 DAY gets the date 30 days ago, and WHERE filters orders placed after this date.
+DISTINCT ensures that each customer is listed only once, even if they placed multiple orders.
+
+2.Get the total amount of all orders placed by each customer:
+
+SELECT c.name, SUM(o.total_amount) AS total_spent
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id;
+
+Explanation:
+JOIN orders o ON c.id = o.customer_id: This joins the customers table with the orders table, linking each order to its respective customer using the customer_id.
+SUM(o.total_amount) AS total_spent: This calculates the total amount spent by each customer by summing up the total_amount for all orders placed by that customer.
+GROUP BY c.id: This groups the result by customer (c.id), so the sum is calculated for each individual customer.
+
+3.Update the price of Product C:
+
+UPDATE products
+SET price = 45.00
+WHERE name = 'Product C';
+
+Explanation:
+This query updates the price of Product C in the products table to 45.00.
+
+4.Add a new discount column to the products table:
+
+ALTER TABLE products
+ADD COLUMN discount DECIMAL(5, 2) DEFAULT 0;
+
+Explanation:
+This query adds a new column discount to the products table, which stores discount values with 2 decimal places, and defaults to 0.
+
+5.Retrieve the top 3 products with the highest price:
+
+SELECT name, price
+FROM products
+ORDER BY price DESC
+LIMIT 3;
+
+Explanation:
+The query sorts products by price in descending order (ORDER BY price DESC) and retrieves only the top 3 using LIMIT.
+
+6.Get names of customers who have ordered Product A:
+
+SELECT DISTINCT c.name 
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id
+WHERE p.name = 'Product A';
+
+Explanation:
+This query retrieves customers who ordered Product A by joining the customers, orders, order_items, and products tables.
+DISTINCT ensures each customer is listed only once.
+
+7.Join the orders and customers tables to retrieve the customer's name and order date for each order:
+
+SELECT c.name, o.order_date
+FROM orders o
+JOIN customers c ON o.customer_id = c.id;
+
+Explanation:
+This query joins the orders table with the customers table and retrieves the customer's name and the order date for each order.
+
+8.Retrieve orders with total amount greater than 150.00:
+
+SELECT * 
+FROM orders
+WHERE total_amount > 150.00;
+
+Explanation:
+This query filters the orders where the total_amount is greater than 150.00.
+
+9.Normalize the database by creating a separate table for order items and updating the orders table to reference the order_items table:
+
+Create order_items table to normalize database
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+Update the orders table to remove direct product details
+ALTER TABLE orders 
+DROP COLUMN total_amount;
+
+INSERT INTO order_items (order_id, product_id, quantity, price)
+VALUES 
+(1, 1, 2, 999.99),  
+(1, 2, 1, 25.50),   
+(2, 3, 1, 599.00),  
+(2, 4, 2, 85.75),   
+(3, 5, 1, 199.99),  
+(3, 6, 1, 45.00);  
+
+Explanation:
+To normalize the database by creating a separate table for order items and updating the orders table to reference the new order_items table.
+
+Create an order_items table that will link each order to its products.
+Update the orders table to remove any direct product-related information (like product_id and quantity), since that will now be handled by the order_items table.
+
+10.Retrieve the average total amount of all orders:
+
+SELECT AVG(total_amount) AS average_order_total
+FROM orders;
+
+Explanation:
+This query calculates the average total_amount across all orders.
+
+
+
+
+
+
+
+
